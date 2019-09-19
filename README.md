@@ -3,6 +3,6 @@
 ## serve with hot reload at localhost:9528
 npm run dev
 
-## project view 및 기능
+## project view and skill
 사용자 메뉴얼 참고 <br />
-See the Web_Guide_book at the list
+See the Descent Web Admin User Guide Book
