@@ -201,7 +201,7 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
           this.video = this.files.filter(item => {
             return item.fileCd === 'WV'
           })[0]
-
+          console.log(this.video.logicalPath)
           this.thumbPath = this.files.filter(item => {
             return item.fileCd === 'TH'
           })[0].logicalPath

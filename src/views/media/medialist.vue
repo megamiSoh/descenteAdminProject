@@ -1,5 +1,5 @@
 <template>
-<div class="memberL" id="vList">
+<div class="memberL" id="vList" v-loading="loading">
   <h1>{{listName}}</h1>
   <div label="Main 배너 리스트" class="memberL_wrap">
     <el-form ref="form" :model="search" label-width="120px" @submit.prevent="getMedia" method="post" class="searchBoxStyle">
@@ -74,7 +74,7 @@
         </el-form-item>
           <el-form-item class="member_btn_wrap">
           <el-col class="member_btn">
-            <el-button type="info" icon="el-icon-search" @click="getMedia();commit()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="getMedia();pageReset()" size="mini">검색</el-button>
              <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
           
         </el-col>
@@ -190,6 +190,7 @@ import formurlencoded from 'form-urlencoded'
     },
     data() {
       return {
+        loading: false,
         listName: '영상 리스트',
         videoShow: false,
         fileId: '',
@@ -205,7 +206,7 @@ import formurlencoded from 'form-urlencoded'
         },
         paging: {
           page: 1,
-          pageSize: 20,
+          pageSize: 10,
           totalPages: 0,
           totalRecords: 0,
           orderBy: 'CreateDate',
@@ -249,8 +250,8 @@ import formurlencoded from 'form-urlencoded'
        checkThisPage(){
          if(this.$store.state.example.list === this.listName) {
     
-          this.search = JSON.parse(this.$store.state.example.search)
-          this.paging = JSON.parse(this.$store.state.example.paging)
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
          } else {
            this.$store.commit('search', '')
             this.$store.commit('paging', '')
@@ -378,7 +379,9 @@ import formurlencoded from 'form-urlencoded'
             console.log(response)
           })
         },
-        
+        pageReset(){
+          this.paging.page = 1
+        },
         resetBtn() {
           this.search = {
              id: '',
@@ -393,12 +396,30 @@ import formurlencoded from 'form-urlencoded'
         },
         deleteBtn(id) {
             var data =  formurlencoded({ fileId: id })
+            this.$confirm('동영상을 삭제하시겠습니까?', '삭제', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'Success'
+            }).then(() =>{
             Remove(data)
             .then(response => {
-                this.$message.error('관리자 삭제가 완료되었습니다.');
+              if(response === undefined) {
+                this.$message({
+                message: '동영상 삭제할 수 없습니다..',
+                type: 'warning'
+                })
+              } else {
+                this.$message({
+                  message: '동영상 등록이 완료 되었습니다.',
+                  type: 'success'});
+                  this.getMedia();
+              }
             })
-        }
         
+         }).catch(err => {
+               this.$message.info('취소 되었습니다.');
+             })
+        }
         },
        
          computed: {

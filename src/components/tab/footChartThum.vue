@@ -126,9 +126,11 @@ export default {
     },
     created(){
         this.cutdetail()
+        console.log('created')
     },
     mounted() {
         this.cutdetail()
+        console.log('mounted')
     },
    
     methods: {

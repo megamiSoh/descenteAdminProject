@@ -67,7 +67,7 @@
         </td>
       </tr>
     </table>
-    <div class="app">
+    <div class="app backCk">
     <ckeditor 
       v-model="content" 
       :config="config" 

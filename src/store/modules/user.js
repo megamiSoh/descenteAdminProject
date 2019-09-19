@@ -104,6 +104,9 @@ const user = {
     LogOut({ commit, state }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
+        commit('paging', '')
+        commit('list', '')
+        commit('search', '')
         localStorage.clear();
         removeToken()
         resolve()

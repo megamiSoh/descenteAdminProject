@@ -15,7 +15,7 @@
                 </th>
                 <td>
                     <div v-for="children in list.children">
-                        <span :key="children.id">{{children.name}}{{children.id}}
+                        <span :key="children.id">{{children.name}}
                         </span>  
                     </div>
                 </td>

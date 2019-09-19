@@ -7,8 +7,8 @@
     </h1>
 <el-form :model="user" :data="user" @submit.prevent="getUsers">
     <el-form-item class="memimg_wrap">
-    <img class="memimg" v-bind:src="file.logicalPath"  v-model="file" v-if="file!=null">
-    <img class="memimg" v-bind:src="noimg"  v-model="file" v-else>
+    <!--<img class="memimg" v-bind:src="file.logicalPath"  v-model="file" v-if="file!=null">-->
+    <img class="memimg" v-bind:src="noimg"  v-model="file">
     </el-form-item>
     <el-form-item class="meminfo">
         <el-row :gutter="20">
@@ -179,7 +179,6 @@ export default {
           })
         },
         handleClick(tab, event) {
-        // console.log(tab, event);
       },
        open2() {
         
@@ -202,7 +201,6 @@ export default {
                 type: 'info',
                 message: '발송이 취소 되었습니다.'
             });  
-            //   console.log(response)
           })
         }
     },

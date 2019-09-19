@@ -29,6 +29,10 @@ new Vue({
   created() {
    window.addEventListener('beforeunload', this.handler)
    this.handler()
+  //  if (!window.Promise) {
+  //   window.Promise = Promise;
+  // }
+  
   },
   methods: {
     handler(event) {

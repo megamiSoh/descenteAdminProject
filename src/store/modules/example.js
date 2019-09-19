@@ -1,20 +1,20 @@
 import Cookies from 'js-cookie'
 const pageInfo = {
   state: {
-    search: Cookies.get('data'),
-    paging: Cookies.get('page'),
+    search: Cookies.getJSON('search'),
+    paging: Cookies.getJSON('paging'),
     list: Cookies.get('list')
   },
 
   mutations: {
     search: (state, data) => {
-      Cookies.set('data', data)
+      Cookies.set('search', data)
       
-      state.data = data
+      state.search = data
     },
     paging: (state, page) => {
-      Cookies.set('page', page)
-      state.page = page
+      Cookies.set('paging', page)
+      state.paging = page
     },
     list: (state, list) => {
       Cookies.set('list', list)

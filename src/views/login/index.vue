@@ -79,7 +79,7 @@ export default {
     },
   methods: {
     ipconfig() {
-      axios.get('https://dev.descente-training.co.kr/api/ip/GetIp',{ headers: { 'Authorization': 'Bearer ' + getToken() }} )
+      axios.get('https://trainingservice-api-dev.azurewebsites.net/api/ip/GetIp',{ headers: { 'Authorization': 'Bearer ' + getToken() }} )
       .then(response =>{
         this.ip=response.data
       }).catch(response=>{

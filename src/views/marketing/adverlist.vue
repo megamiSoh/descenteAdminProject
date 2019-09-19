@@ -1,6 +1,6 @@
 <template>
 <div class="memberL" id="vList">
-  <h1>광고/이벤트 리스트</h1>
+  <h1>{{listName}}</h1>
   <div label="Main 배너 리스트" class="memberL_wrap">
     <el-form ref="form" :model="search" label-width="120px" @submit.prevent="getAdver" method="post" class="searchBoxStyle">
       <el-form size="mini" :inline="true">
@@ -58,7 +58,7 @@
         </el-form-item>
         <el-form-item class="member_btn_wrap">
         <el-col class="member_btn">
-            <el-button type="info" icon="el-icon-search" @click="getAdver()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="getAdver();pageReset()" size="mini">검색</el-button>
              <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
            <!-- memberButton -->
         </el-col>
@@ -187,12 +187,13 @@ import { mapGetters } from 'vuex'
         },
         paging: {
           page: 1,
-          pageSize: 20,
+          pageSize: 10,
           totalPages: 1,
           totalRecords: 1,
           orderBy: 'id',
           ascending: false
         },
+        listName: '광고/이벤트 리스트',
         results: null,
         list: null,
         Loading: true,
@@ -214,12 +215,29 @@ import { mapGetters } from 'vuex'
     },
    
     created() {
-      var self = this;
+      this.checkThisPage()
       this.getAdver()
       this.bannerState()
       this.isAuth()
     },
      methods: {
+       checkThisPage(){
+         if(this.$store.state.example.list === this.listName) {
+    
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
+         } else {
+           this.$store.commit('search', '')
+            this.$store.commit('paging', '')
+            this.$store.commit('list', '')
+         }
+        
+       },
+       commit(){
+         this.$store.commit('search', this.search)
+        this.$store.commit('paging', this.paging)
+        this.$store.commit('list', this.listName)
+       },
        isAuth(){
          var x = this.roles.filter(item => {
                 return item.menuId === 22
@@ -268,6 +286,7 @@ import { mapGetters } from 'vuex'
          var mainBanner = { search: this.search, paging: this.paging}
           getAdEvent(mainBanner)
           .then(response => {
+            this.commit()
             this.loading=false
             this.adResults = response.results
             this.paging = response.paging
@@ -295,7 +314,9 @@ import { mapGetters } from 'vuex'
             endDate: new Date()
             }
         },
-
+        pageReset(){
+          this.paging.page = 1
+        },
         activeBtn(id, isActive) {
           var id = id
           if(isActive === true) {

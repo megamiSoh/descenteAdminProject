@@ -39,7 +39,7 @@
         <el-form-item class="member_btn_wrap">  
         <el-col class="member_btn">
           
-            <el-button type="info" icon="el-icon-search" @click="getBadge(); commit()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="getBadge(); pageReset()" size="mini">검색</el-button>
             <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
         </el-col>
         </el-form-item>
@@ -132,7 +132,7 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
           },
           paging: {
             page: 1,
-            pageSize: 5,
+            pageSize: 10,
             totalPages: 1,
             totalRecords: 0,
             orderBy: "id",
@@ -151,9 +151,10 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
      methods: {
          checkThisPage(){
          if(this.$store.state.example.list === this.listName) {
-    
-          this.search = JSON.parse(this.$store.state.example.search)
-          this.paging = JSON.parse(this.$store.state.example.paging)
+            
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
+          console.log(this.$store.state.example.search)
          } else {
            this.$store.commit('search', '')
             this.$store.commit('paging', '')
@@ -179,6 +180,9 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
                return false
            }
        },
+       pageReset(){
+           this.paging.page = 1
+       },
         getBadge() {
             this.loading = true
             var data = {search: this.search, paging: this.paging}
@@ -187,6 +191,7 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
                 this.loading = false
                 this.badge = response.results
                 this.paging = response.paging
+                this.commit()
                 // this.noResults = this.badge.length
             })
         },

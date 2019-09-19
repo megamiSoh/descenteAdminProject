@@ -48,7 +48,7 @@
       </el-form-item>
         <el-form-item class="member_btn_wrap">
         <el-col class="member_btn">
-            <el-button type="info" icon="el-icon-search" @click="submitForm();commit()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="submitForm();pageReset()" size="mini">검색</el-button>
              <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
            <!-- memberButton -->
         </el-col>
@@ -213,8 +213,8 @@ import { router } from '@/router'
          checkThisPage(){
          if(this.$store.state.example.list === this.listName) {
     
-          this.search = JSON.parse(this.$store.state.example.search)
-          this.paging = JSON.parse(this.$store.state.example.paging)
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
          } else {
            this.$store.commit('search', '')
             this.$store.commit('paging', '')
@@ -262,6 +262,9 @@ import { router } from '@/router'
       },
       checkPage (page) {
           return parseInt(this.paging.page / 10) == parseInt(page / 10);
+      },
+      pageReset(){
+          this.paging.page = 1
       },
       submitForm() {
           this.loading = true

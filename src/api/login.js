@@ -3,7 +3,7 @@ import { getToken, reToken } from '@/utils/auth'
 export function login(data) {
   return fetch({
     url:
-    'https://serverdev.descente-training.co.kr/token',
+    'https://trainingservice-auth-dev.azurewebsites.net/token',
     method: 'post',
     data
   })

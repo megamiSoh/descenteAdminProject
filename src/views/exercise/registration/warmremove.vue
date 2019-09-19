@@ -25,7 +25,7 @@
     <tr>
       <th></th>
       <th>파일명</th>
-      <th>기존 파일 미리보기</th>
+      <th style="width: 300px">기존 파일 미리보기</th>
       <th>파일 변경</th>
     </tr>
     <tr>
@@ -70,8 +70,8 @@
       <td v-if="!todos2.length">
           등록할 파일이 존재하지 않습니다.
       </td>
-      <td>{{todos2}}</td>
-      <td><el-button @click="topShow = true" size="small" class="linkA">{{originTp}}</el-button></td>
+      <td>{{todos2.slice(0, 20)+ '...'}}</td>
+      <td><el-button @click="topShow = true" size="small" class="linkA">{{originTp.slice(0,20) +'.....'}}</el-button></td>
       <td style="text-align: center;">
         <label class="file-label">
           <span class="el-button fileBtn" type="primary" plane size="small" style="font-size:12px;">이미지 변경</span>

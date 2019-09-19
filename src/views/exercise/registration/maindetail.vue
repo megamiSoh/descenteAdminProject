@@ -591,6 +591,7 @@ import videoP from '@/components/tab/videoPlayer'
            
          },
           callVideo(val){
+           
          this.$refs.form.videoId(val)
        },
        getDetail(){
@@ -996,6 +997,15 @@ import videoP from '@/components/tab/videoPlayer'
                this.getDetail()
            })
         },
+    },
+    watch: {
+      introShow: function() {
+        // console.log(!this.introShow, !this.descShow, !this.singFullShow)
+        if(!this.introShow && !this.descShow && !this.singFullShow) {
+          console.log('end')
+           this.$refs.form.video()
+        }
+      }
     },
     computed: {
     ...mapGetters([

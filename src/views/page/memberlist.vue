@@ -147,9 +147,9 @@
           </li>
       </ul>
     </nav>
-    <div>
+   <!-- <div>
         <pageNavi></pageNavi>
-    </div>
+    </div>-->
   </div>
   </div>
 </div>
@@ -207,8 +207,9 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
        checkThisPage(){
          if(this.$store.state.example.list === this.listName) {
     
-          this.search = JSON.parse(this.$store.state.example.search)
-          this.paging = JSON.parse(this.$store.state.example.paging)
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
+          // console.log(this.$store.state.example.paging)
          } else {
            this.$store.commit('search', '')
             this.$store.commit('paging', '')
@@ -220,6 +221,7 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
          this.$store.commit('search', this.search)
         this.$store.commit('paging', this.paging)
         this.$store.commit('list', this.listName)
+        // console.log(this.paging)
        },
       resultId() {
         this.commit()

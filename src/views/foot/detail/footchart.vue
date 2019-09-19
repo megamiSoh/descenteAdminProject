@@ -94,7 +94,7 @@
  <el-form size="mini" :inline="true" class="foot_bottom_btnStyle">
     <el-form-item size="mini" :inline="true" style="padding-right: 100px;">
         <el-form-item>
-            <el-button @click="originDataShow()">원본 데이터 보기</el-button>
+            <el-button @click="originDataShow()">원본 데이터</el-button>
         </el-form-item>
         <el-form-item>
             <el-button @click.prevent="showChartFunc()">

@@ -313,19 +313,28 @@ import { mapGetters } from 'vuex'
         testPush(){
             var getItem = localStorage.getItem('id')
             var data = {adminIds: this.appPushList, pushId : getItem}
+            this.$confirm('TEST PUSH를 발송 하시겠습니까?', '발송', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'Success'
+            }).then(() =>{
             testPush(data)
                 .then(response => {
-                    this.pushShow = false
-                    this.$alert('TEST PUSH 발송 완료 되었습니다.', 'TestPush', {
-                        confirmButtonText: 'OK',
-                        callback: action => {
-                            this.$message({
-                             type: 'success',
-                            message: 'TEST PUSH 발송 완료 되었습니다.'
-                            });
-                        }
-                        });
+                     if(response === undefined) {
+                this.$message({
+                    message: 'TEST PUSH를 발송할 수 없습니다.',
+                    type: 'warning'
+                    })
+                } else {
+                    this.$message({
+                    message: 'TEST PUSH 발송이 완료 되었습니다..',
+                    type: 'success'});
+                }
                 })
+                }).catch(err => {
+               this.$message.info('취소 되었습니다.');
+             })
+        
         },
         getSex(){
             GetTargetSexCd()

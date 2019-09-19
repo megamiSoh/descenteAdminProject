@@ -125,7 +125,7 @@
          <!-- memberButton -->   
          <el-form-item class="member_btn_wrap">        
         <el-col class="member_btn">
-            <el-button type="info" icon="el-icon-search" @click="submitForm(); pageReset();commit()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="submitForm(); pageReset();" size="mini">검색</el-button>
             <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
         </el-col>
         </el-form-item>
@@ -277,8 +277,8 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
        checkThisPage(){
          if(this.$store.state.example.list === this.listName) {
     
-          this.search = JSON.parse(this.$store.state.example.search)
-          this.paging = JSON.parse(this.$store.state.example.paging)
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
          } else {
            this.$store.commit('search', '')
             this.$store.commit('paging', '')
@@ -335,6 +335,7 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
         getTheme(data)
             .then(response => {
               this.loading = false
+              this.commit()
               this.results = response.results
               this.paging = response.paging
               if(this.paging.totalRecords <= 0){

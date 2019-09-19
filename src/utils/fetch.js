@@ -13,7 +13,7 @@ let isRefreshing = false;
 let refreshSubsc = [];
 //axios 인스턴스 만들기
 const service = axios.create({
-  baseURL: 'https://dev.descente-training.co.kr/api/', // api의base_url
+  baseURL: 'https://trainingservice-api-dev.azurewebsites.net/api/', // api의base_url
   // baseURL: 'https://smartshoe-api-dev.azurewebsites.net/api/',
   // timeout: 15000                  // 요청 제한 시간
 })

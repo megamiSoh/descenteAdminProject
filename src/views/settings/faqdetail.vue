@@ -22,7 +22,7 @@
       </el-col>
     </el-form-item>
   </div>-->
-    <div class="disabled_editor">
+    <div class="disabled_editor backCk">
     <ckeditor 
       v-model="content" 
       :config="config" 

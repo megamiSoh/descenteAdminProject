@@ -174,7 +174,7 @@
                     <td>{{entry.endDate}}</td>
                     <td><el-button type="info" size="mini" class="submitBtn" @click="adId(entry.id, entry.title)" plain>선택</el-button></td>
                 </tr>
-                <tr>
+                <tr v-if="!results.length">
                     <td colspan="8" style="padding: 40px;">검색결과가 없습니다.</td>
                 </tr>
             </tbody>

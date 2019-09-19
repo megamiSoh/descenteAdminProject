@@ -91,7 +91,7 @@
         <input class="file-input" type="file" id="file" accept="image/*" @change="change()" style="display: none;" > 
       </label>
         <span class="file-name">
-                      {{todos1}}  
+                      {{todos1.slice(0,20)+'...'}}  
           <el-dialog
               title="이미지 미리보기"
               :visible.sync="thumShow"
@@ -101,7 +101,7 @@
         </span>
     </td>
     <td class="separate">
-      <el-button @click="thumShow=true" size="small" class="linkA">{{thImg}}</el-button>
+      <el-button @click="thumShow=true" size="small" class="linkA">{{thImg.slice(0,20)+'...'}}</el-button>
     </td>
   </tr>
   <tr>
@@ -112,7 +112,7 @@
         <input class="file-input" type="file" id="file1" accept="image/*" @change="change1()" style="display: none;" > 
       </label>
         <span class="file-name">
-                      {{todos2}}
+                      {{todos2.slice(0,20)+'...'}}
                   <el-dialog
                       title="이미지 미리보기"
                       :visible.sync="midShow"
@@ -122,7 +122,7 @@
         </span>
     </td>
     <td>
-       <el-button @click="midShow = true" size="small" class="linkA">{{mpImg}}</el-button>
+       <el-button @click="midShow = true" size="small" class="linkA">{{mpImg.slice(0,20)+'...'}}</el-button>
     </td>
   </tr>
   <tr>
@@ -133,7 +133,7 @@
       <input class="file-input" type="file" id="file2" accept="image/*" @change="change2()" style="display: none;" > 
     </label>
       <span class="file-name">
-                    {{todos3}}
+                    {{todos3.slice(0,20)+'...'}}
                   <el-dialog
                       title="이미지 미리보기"
                       :visible.sync="topShow"
@@ -142,7 +142,7 @@
                   </el-dialog>
       </span>
     </td>
-    <td><el-button @click="topShow= true" size="small" class="linkA">{{tpImg}}</el-button></td>
+    <td><el-button @click="topShow= true" size="small" class="linkA">{{tpImg.slice(0,20)+'...'}}</el-button></td>
   </tr>
   <tr>
     <th rowspan="3" class="title_style">
@@ -1655,11 +1655,12 @@ import videoP from '@/components/tab/videoPlayer'
       this.mediaMenu()
       this.getDetail()
       this.getMuscle()
-      // this.warmActive()
-      // this.mainActive()
-      // this.coolActive()
+      
     },
+    
+    
      methods: {
+      
         videoPlayer(val){
              var data = {fileId: val}
              getvideoUrl(data)
@@ -2528,7 +2529,12 @@ import videoP from '@/components/tab/videoPlayer'
         pageReset(){
           this.paging.page = 1
         },
+        charaLen(add){
+          console.log(add)
+        return console.log(add.split('').length > 20? add.slice(0,20+'.....') : add)}
         
-    }
+        
+     },
+    // }
 }
 </script>

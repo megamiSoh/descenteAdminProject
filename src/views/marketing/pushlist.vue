@@ -74,7 +74,7 @@
       </el-form-item>
       <el-form-item class="member_btn_wrap">
         <el-col class="member_btn">
-            <el-button type="info" icon="el-icon-search" @click="getPush()" size="mini">검색</el-button>
+            <el-button type="info" icon="el-icon-search" @click="getPush();pageReset()" size="mini">검색</el-button>
              <el-button type="info" @click="resetBtn()" size="mini">검색조건 초기화</el-button>
         </el-col>
        </el-form-item>
@@ -216,12 +216,30 @@ import { mapGetters } from 'vuex'
     },
    
     created() {
+      this.checkThisPage()
       this.getPush()
       this.bannerState()
       this.getPurpose()
       this.isAuth()
     },
      methods: {
+       checkThisPage(){
+         if(this.$store.state.example.list === this.listName) {
+    
+          this.search = this.$store.state.example.search
+          this.paging = this.$store.state.example.paging
+         } else {
+           this.$store.commit('search', '')
+            this.$store.commit('paging', '')
+            this.$store.commit('list', '')
+         }
+        
+       },
+       commit(){
+         this.$store.commit('search', this.search)
+        this.$store.commit('paging', this.paging)
+        this.$store.commit('list', this.listName)
+       },
        isAuth(){
          var x = this.roles.filter(item => {
                 return item.menuId === 23
@@ -258,12 +276,16 @@ import { mapGetters } from 'vuex'
       checkPage (page) {
           return parseInt(this.paging.page / 10) == parseInt(page / 10);
       },
+      pageReset(){
+        this.paging.page = 1
+      },
        getPush() {
          this.loading= true
          var data = {search: this.search, paging: this.paging}
          getPush(data)
          .then(response => {
            this.loading = false
+           this.commit()
            this.results = response.results
            this.paging = response.paging
            this.recent = new Date().getFullYear()+'' +("0" + (new Date().getMonth()+1)).slice(-2)+'' +("0" + new Date().getDate()).slice(-2)+ ''+

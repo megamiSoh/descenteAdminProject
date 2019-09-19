@@ -80,7 +80,7 @@
       <col width="140" />
       <col width="200" />
     </colgroup>
-      <tr v-for="item in themeItem">
+      <tr v-for="(item, index) in themeItem">
         <th>{{item.name}}</th>
         <td><span v-if="item.isFootPressure === true">Great <span class="stateShape" v-if="item.greatCnt === null"><strong>ㅡ</strong></span><span v-else class="stateShape">{{item.greatCnt}}</span></span><span v-else><strong>ㅡ</strong></span></td>
         <td><span v-if="item.isFootPressure === true">Good<span class="stateShape" v-if="item.goodCnt === null"><strong>ㅡ</strong></span><span v-else class="stateShape">{{item.goodCnt}}</span> </span><span v-else><strong>ㅡ</strong></span></td>
@@ -118,6 +118,9 @@ import VCalendar from 'v-calendar';
     // props: ['left'],
      data() {
       return {
+        nullList: [
+          {name: 'Squats'}, {name: 'Jumping Jack'}, {name: 'Side Lunge'}
+        ],
          showDetail: false,
         //  left: '',
           user: '',
@@ -225,6 +228,11 @@ import VCalendar from 'v-calendar';
           .then(response => {
             this.themeResults = response
             this.themeItem = response.items
+            if(this.themeItem.length){
+              const list = ['Squats', 'Jumping Jack', 'Side Lunge', 'Clap Jack', 'Plank']
+              for(var i = 0; i< this.themeItem.length; i++){
+                this.themeItem[i].name = list[i]
+              }}
           })
         },
         getUsers() {

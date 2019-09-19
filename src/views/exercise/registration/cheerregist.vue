@@ -1212,11 +1212,11 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
        },
       
        isShow(){
-          alert(this.paging1.totalRecords)
+          // alert(this.paging1.totalRecords)
        },
        
        greatDelete(val){
-         alert(val)
+        //  alert(val)
           this.greatList.splice(this.greatList.findIndex(item => {
             for(var key in this.greatList) {
               return item[key].fileId === val

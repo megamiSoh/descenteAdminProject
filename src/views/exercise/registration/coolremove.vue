@@ -25,7 +25,7 @@
  <tr>
   <th></th>
   <th>파일명</th>
-  <th>기존 파일 미리보기</th>
+  <th style="width: 350px;">기존 파일 미리보기</th>
   <th colspan="2">파일 변경</th> 
  </tr>
   <tr>

@@ -1,6 +1,6 @@
 <template>
 <div>
-     <video ref="azuremediaplayer" class="azuremediaplayer amp-default-skin amp-big-play-centered " tabindex="0"  :src="videoUrl">
+     <video ref="azuremediaplayer" class="azuremediaplayer amp-default-skin amp-big-play-centered" @ended='video' tabindex="0"  :src="videoUrl">
      </video>
 </div>
 </template>
@@ -13,20 +13,43 @@ import { getvideoUrl } from '@/api/exercise'
     data() {
       return {
         videoUrl: '',
+        // id: '',
       }   
     },
-
+  created() {
+ 
+  },
      methods: {
+       video() {
+        // var myOptions = {
+        //         "nativeControlsForTouch": false,
+        //         controls: false,
+        //         wasPaused: true,
+        //         width: "719",
+        //         height: "400",
+        //     }
+             this.myPlayer = amp(this.$refs.azuremediaplayer, 
+      );
+      console.log(this.myPlayer.wasPaused = true)
+            this.myPlayer.src([
+                    {
+                            "src": this.videoUrl,
+                            "type": "application/vnd.ms-sstr+xml"
+                    }
+           ]);
+       },
         videoId(val){
           
              if(val !== undefined) {
                  var data = {fileId: val}
+                //  this.id = val
              getvideoUrl(data)
              .then(response => {
                  var videoUrl = response   
                  this.videoUrl = videoUrl.replace("http", "https")
+                 console.log('start')
                 //  console.log(this.videoUrl.replace("http", "https"))
-                 console.log(this.videoUrl)
+                
             }).then(() => {
                 var myOptions = {
                 "nativeControlsForTouch": false,
@@ -37,6 +60,7 @@ import { getvideoUrl } from '@/api/exercise'
             }
              this.myPlayer = amp(this.$refs.azuremediaplayer, myOptions, 
       );
+      console.log(this.myPlayer.wasPaused)
             this.myPlayer.src([
                     {
                             "src": this.videoUrl,

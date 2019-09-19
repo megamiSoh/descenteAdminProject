@@ -104,12 +104,12 @@
             </el-form-item>
             <el-form-item>
                 <el-col>
-                    <el-date-picker type="date" v-model="search.startDate" placeholder="Pick a date" :clearable="false" size="mini" style="width: 100%; margin-right: 10px;"></el-date-picker>
+                    <el-date-picker type="date" v-model="search.startDate" placeholder="Pick a date" :clearable="false" size="mini" style="width: 100%; margin-right: 10px;" :disabled="search.searchColumn==null"></el-date-picker>
                 </el-col>
             </el-form-item>
             <el-form-item>
                 <el-col>
-                    <el-date-picker type="date" v-model="search.endDate" placeholder="Pick a date" :clearable="false" size="mini" style="width: 100%; margin-right: 10px;"></el-date-picker>
+                    <el-date-picker type="date" v-model="search.endDate" placeholder="Pick a date" :clearable="false" size="mini" style="width: 100%; margin-right: 10px;" :disabled="search.searchColumn==null"></el-date-picker>
                 </el-col>
             </el-form-item>
             </el-form>
@@ -118,7 +118,7 @@
                    <el-col>
                      <el-select v-model="search.state" size="mini">
                         <el-option label="전체" :value="null"></el-option>
-                        <el-option v-for="list in states" :key="list.key" :value="list.key" label="list.name"></el-option>
+                        <el-option v-for="list in states" :key="list.key" :value="list.key" :label="list.name">{{list.name}}</el-option>
                     </el-select>
                    </el-col>
                 </el-form-item>
@@ -137,7 +137,7 @@
                 <el-form-item class="member_btn_wrap">
                     <el-col>
                         <el-button type="info" size="mini" class="submitBtn" @click=" getActive()" >검색</el-button>
-                        <el-button type="warning" size="mini" class="submitBtn">초기화</el-button>
+                        <el-button type="warning" size="mini" class="submitBtn" @click="reset()">초기화</el-button>
                     </el-col>
                 </el-form-item>
             </el-form>
@@ -161,7 +161,7 @@
             </thead>
             <tbody  class="el-table-column listTable">
                 <tr v-for="(entry, index) in results" :value="results.id" :key="results.id">
-                    <td>{{index}}</td>
+                    <td>{{index+1}}</td>
                     <td>{{entry.id}}</td>
                     <td>{{entry.stateNm}}</td>
                     <td>{{entry.stateNm}}</td>
@@ -219,8 +219,9 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
             title: '',
             state: null,
             searchColumn: null,
-            startDate: '2017-10-01',
-            endDate: '2017-12-31'
+            startDate: 
+          new Date().getFullYear()+ '-'+('00'+(new Date().getMonth()+1)).slice(-2)+ '-' + '01',
+            endDate:  new Date().getFullYear()+ '-'+('00'+(new Date().getMonth()+1)).slice(-2)+ '-' + ('00'+new Date().getDate()).slice(-2)
         },
         paging: {
             page: 1,
@@ -379,6 +380,16 @@ import { getToken, setToken, removeToken, reToken } from '@/utils/auth'
                 this.sendSelect = this.sendPurpose[0].key
             })
         },
+        reset() {
+         this.search = {
+            id: '',
+            title: '',
+            state: null,
+            searchColumn: null,
+            startDate: 
+          new Date().getFullYear()+ '-'+('00'+(new Date().getMonth()+1)).slice(-2)+ '-' + '01',
+            endDate:  new Date().getFullYear()+ '-'+('00'+(new Date().getMonth()+1)).slice(-2)+ '-' + ('00'+new Date().getDate()).slice(-2)
+        }}
     }
 }
 </script>
